@@ -37,6 +37,6 @@ def create_equipment(equipment_type, sn, note):
             errors.append(s + ' already exists')
             continue
         created.append(Equipment(equipment_type=eq_type, sn=s, note=note))
-        with transaction.atomic():
-            Equipment.objects.bulk_create(created)
-        return {'created': [e.sn for e in created], 'errors': errors}
+    with transaction.atomic():
+        Equipment.objects.bulk_create(created)
+    return {'created': [e.sn for e in created], 'errors': errors}
